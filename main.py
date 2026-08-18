@@ -36,7 +36,7 @@ def contar_fichas(tablero):
                 fichas_a += 1
             elif casila == "B":
                 fichas_b += 1
-    return fichas_b, fichas_a
+    return fichas_a, fichas_b
 
 #tablero = crear_tablero(5)
 #fichas_a, fichas_b = contar_fichas(tablero)
@@ -50,7 +50,7 @@ def tablero_lleno(tablero):
 
     return True
 
-    
+
 #PRUEBA ARTIFICIAL
 #tablero_prueba = [
     ["A", "A", "B", "A", "B"],
@@ -61,3 +61,22 @@ def tablero_lleno(tablero):
 #]
 
 #print("¿Tablero lleno?:", tablero_lleno(tablero_prueba))
+
+def jugador_sin_fichas(tablero, jugador):
+    fichas_a, fichas_b = contar_fichas(tablero)
+
+    if jugador == "A":
+        return fichas_a == 0
+    elif jugador == "B":
+        return fichas_b == 0
+    else:
+        raise ValueError("El jugador debe ser 'A' o 'B'.")
+
+tablero = crear_tablero(5)
+#print("¿A esta sin fichas?:", jugador_sin_fichas(tablero, "A"))
+
+
+#PRUEBA ARTIFICIAL
+tablero[0][4] = "."
+tablero[4][0] = "."
+print("¿B esta sin fichas?:", jugador_sin_fichas(tablero, "B"))
