@@ -77,6 +77,41 @@ tablero = crear_tablero(5)
 
 
 #PRUEBA ARTIFICIAL
-tablero[0][4] = "."
-tablero[4][0] = "."
-print("¿B esta sin fichas?:", jugador_sin_fichas(tablero, "B"))
+#tablero[0][4] = "."
+#tablero[4][0] = "."
+#print("¿B esta sin fichas?:", jugador_sin_fichas(tablero, "B"))
+
+def cambiar_turno(jugador):
+    if jugador == "A":
+        return "B"
+    elif jugador == "B":
+        return "A"
+    else:
+        raise ValueError("El jugador debe ser 'A' o 'B'.")
+#TESTING
+#jugador = "A"
+#print(jugador)
+#jugador = cambiar_turno(jugador)
+#print(jugador)
+#jugador = cambiar_turno(jugador)
+#print(jugador)
+
+def obtener_ganador(tablero):
+    fichas_a, fichas_b = contar_fichas(tablero)
+    if fichas_a > fichas_b:
+        return "A"
+    elif fichas_a < fichas_b:
+        return "B"
+    else:
+        return None
+#CASO NONE
+#tablero = crear_tablero(5)
+#print("ganador:", obtener_ganador(tablero))
+
+#CASO A
+#tablero[1][1] = "A"
+#print("Ganador:", obtener_ganador(tablero))
+
+#CASO B
+#tablero[1][1] = "B"
+#print("Ganador:", obtener_ganador(tablero))
