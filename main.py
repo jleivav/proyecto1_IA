@@ -115,3 +115,28 @@ def obtener_ganador(tablero):
 #CASO B
 #tablero[1][1] = "B"
 #print("Ganador:", obtener_ganador(tablero))
+
+def obtener_estado(tablero, jugador):
+    """Obtiene una representación inmutable del estado del juego.
+
+    Args:
+        tablero (list[list[str]]): Estado actual del tablero.
+        jugador (str): Jugador al que le corresponde el turno.
+
+    Returns:
+        tuple: Configuración del tablero y jugador en turno.
+
+    Raises:
+        ValueError: Si el jugador no es "A" ni "B".
+    """
+    if jugador not in ("A", "B"):
+        raise ValueError("El jugador debe ser 'A' o 'B'.")
+
+    tablero_estado = tuple(tuple(fila) for fila in tablero)
+
+    return tablero_estado, jugador
+#TESST
+#tablero = crear_tablero(5)
+#estado_a = obtener_estado(tablero, "A")
+#estado_b = obtener_estado(tablero, "B")
+#print(estado_a == estado_b)
