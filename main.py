@@ -140,3 +140,45 @@ def obtener_estado(tablero, jugador):
 #estado_a = obtener_estado(tablero, "A")
 #estado_b = obtener_estado(tablero, "B")
 #print(estado_a == estado_b)
+
+#Falta testear
+def Mov_val(tablero, fila, columna, n):
+    mov = []
+    for i in -2, 2:
+        for j in -2, 2:
+            if i == 0 and j == 0:
+                continue
+            dist = max(abs(i), abs(j))
+            if dist == 2:
+                continue
+            nueva_fila = fila + i
+            nueva_columna = columna + j
+            if nueva_fila >= 0 and nueva_fila < n and nueva_columna >= 0 and nueva_columna < n:
+                if tablero[nueva_fila][nueva_columna] == 0:
+                    mov.append((nueva_fila, nueva_columna))
+    return mov
+
+
+def Mov_ficha(tablero, fila, columna, nuevafila, nuevacolumna):
+    i = abs(nuevafila - fila)
+    j = abs(nuevacolumna - columna)
+
+    dist = max(i, j)
+    if dist == 2:
+        tablero[nuevafila][nuevacolumna] = tablero[fila][columna]
+        tablero[fila][columna] = 0
+
+    elif dist == 1:
+        tablero[nuevafila][nuevacolumna] = tablero[fila][columna]
+
+
+def Capturar(tablero, fila, columna, jugador, n):
+
+    for i in -1, 1:
+        for j in -1, 1:
+            nueva_fila = fila + i
+            nueva_columna = columna + j
+
+            if nueva_fila >= 0 and nueva_fila < n and nueva_columna >= 0 and nueva_columna < n:
+                if tablero[nueva_fila][nueva_columna] != 0 and tablero[nueva_fila][nueva_columna] != jugador:
+                    tablero[nueva_fila][nueva_columna] = jugador
