@@ -143,42 +143,92 @@ def obtener_estado(tablero, jugador):
 
 #Falta testear
 def Mov_val(tablero, fila, columna, n):
+    """Obtiene los movimientos válidos desde una posición del tablero.
+
+    Args:
+        tablero (list[list[str]]): Estado actual del tablero.
+        fila (int): Fila de origen.
+        columna (int): Columna de origen.
+        n (int): Tamaño del tablero.
+
+    Returns:
+        list[tuple[int, int]]: Coordenadas de destinos válidos.
+    """
     mov = []
-    for i in -2, 2:
-        for j in -2, 2:
+    for i in range(-2, 3):
+        for j in range(-2, 3):
             if i == 0 and j == 0:
                 continue
             dist = max(abs(i), abs(j))
-            if dist == 2:
-                continue
-            nueva_fila = fila + i
-            nueva_columna = columna + j
-            if nueva_fila >= 0 and nueva_fila < n and nueva_columna >= 0 and nueva_columna < n:
-                if tablero[nueva_fila][nueva_columna] == 0:
-                    mov.append((nueva_fila, nueva_columna))
+            if dist == 1 or dist == 2:
+                nueva_fila = fila + i
+                nueva_columna = columna + j
+                if nueva_fila >= 0 and nueva_fila < n and nueva_columna >= 0 and nueva_columna < n:
+                    if tablero[nueva_fila][nueva_columna] == ".":
+                        mov.append((nueva_fila, nueva_columna))
     return mov
-
+#tablero = crear_tablero(5)
+#tablero[1][1] = "B"
+#tablero[2][1] = "A"
+#print(Mov_val(tablero, 0, 0, 5))
 
 def Mov_ficha(tablero, fila, columna, nuevafila, nuevacolumna):
+    """Realiza el movimiento de una ficha según su distancia.
+
+    Args:
+        tablero (list[list[str]]): Estado actual del tablero.
+        fila (int): Fila de origen.
+        columna (int): Columna de origen.
+        nuevafila (int): Fila de destino.
+        nuevacolumna (int): Columna de destino.
+
+    Returns:
+        None: Modifica directamente el tablero.
+    """
     i = abs(nuevafila - fila)
     j = abs(nuevacolumna - columna)
 
     dist = max(i, j)
     if dist == 2:
         tablero[nuevafila][nuevacolumna] = tablero[fila][columna]
-        tablero[fila][columna] = 0
+        tablero[fila][columna] = "."
 
     elif dist == 1:
         tablero[nuevafila][nuevacolumna] = tablero[fila][columna]
+#tablerin = crear_tablero(5)
+#Mov_ficha(tablerin,0,0,2,2)
+#print(tablerin)
+
 
 
 def Capturar(tablero, fila, columna, jugador, n):
+    """Convierte las fichas rivales adyacentes a la ficha jugada.
 
-    for i in -1, 1:
-        for j in -1, 1:
+    Args:
+        tablero (list[list[str]]): Estado actual del tablero.
+        fila (int): Fila de la ficha jugada.
+        columna (int): Columna de la ficha jugada.
+        jugador (str): Jugador que realizó el movimiento.
+        n (int): Tamaño del tablero.
+
+    Returns:
+        None: Modifica directamente el tablero.
+    """
+
+    for i in range(-1, 2):
+        for j in range(-1, 2):
             nueva_fila = fila + i
             nueva_columna = columna + j
 
             if nueva_fila >= 0 and nueva_fila < n and nueva_columna >= 0 and nueva_columna < n:
-                if tablero[nueva_fila][nueva_columna] != 0 and tablero[nueva_fila][nueva_columna] != jugador:
+                if tablero[nueva_fila][nueva_columna] != "." and tablero[nueva_fila][nueva_columna] != jugador:
                     tablero[nueva_fila][nueva_columna] = jugador
+
+
+#tobleron = crear_tablero(5)
+#tobleron[2][1] = "B"
+#tobleron[3][1] = "B"
+#tobleron[3][2] = "B"
+#tobleron[2][3] = "B"
+#Capturar(tobleron, 2, 2, "A", 5)
+#print(tobleron)
